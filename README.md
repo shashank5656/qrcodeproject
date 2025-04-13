@@ -1,20 +1,37 @@
-UPI QR Code Generator
-This project generates QR codes for UPI payments through various platforms like PhonePe, Paytm, and Google Pay. The user inputs their UPI ID, and the corresponding QR codes for these platforms are generated and saved as .png files.
 
-Features:
-Generates QR codes for PhonePe, Paytm, and Google Pay.
+import qrcode
+import matplotlib.pyplot as plt
+from google.colab import files
 
-Customizes the QR codes with the provided UPI ID.
+upi_id = input("Enter your UPI ID: ")
 
-Saves the QR codes as PNG images.
+phonepe_url = f'upi://pay?pa={upi_id}&pn=Recipient%20Name&mc=1234'
+paytm_url = f'upi://pay?pa={upi_id}&pn=Recipient%20Name&mc=1234'
+google_pay_url = f'upi://pay?pa={upi_id}&pn=Recipient%20Name&mc=1234'
 
-Displays the generated QR codes using matplotlib.
+phonepe_qr = qrcode.make(phonepe_url)
+paytm_qr = qrcode.make(paytm_url)
+google_pay_qr = qrcode.make(google_pay_url)
 
-Requirements:
-Python 3.x
+phonepe_qr.save('phonepe_qr.png')
+paytm_qr.save('paytm_qr.png')  
+google_pay_qr.save('google_pay_qr.png')
 
-qrcode library
+plt.imshow(phonepe_qr)
+plt.axis('off')
+plt.title('PhonePe QR Code')
+plt.show()
 
-matplotlib library
+plt.imshow(paytm_qr)
+plt.axis('off')
+plt.title('Paytm QR Code')
+plt.show()
 
-Pillow library for image handling
+plt.imshow(google_pay_qr)
+plt.axis('off')
+plt.title('Google Pay QR Code')
+plt.show()
+
+files.download('phonepe_qr.png')
+files.download('paytm_qr.png')
+files.download('google_pay_qr.png')
